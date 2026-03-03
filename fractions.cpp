@@ -3,17 +3,31 @@
 #include "fractions.hpp"
 #include <algorithm>
 
-bool isDecimal(double number) {
-  return number == std::floor(number);
-}
 // TODO interpret number as string and process also as string to remove floating point error
-Fraction::Fraction(double number) {
-  // Making number decimal
+Fraction::Fraction(std::string num) {
+  // Load numbers until decimal dot
+  long number = 0;
   int power = 0;
-  while (!isDecimal(number)) {
+  
+  int n = num.size();
+  int i = 0;
+  while (i < n && num[i] != '.') {
     number *= 10;
-    power++;
+    // getDigit by substracting 48 (ASCII valueo of 0) from the char value of char number
+    number += getDigit(num[i]);
+    i++;
   }
+  // Skipping decimal dot
+  i++;
+
+  // Load numbers after dot, with each number increase power by 1
+  while (i < n) {
+    number *= 10;
+    number += getDigit(num[i]);
+    power++;
+    i++;
+  }
+  
   this->numerator = number;
   this->power = power;
   this->denominator = std::pow(10, power);
@@ -90,4 +104,10 @@ void factorise(std::vector<PrimeFactor>& factors, long target) {
       factors.push_back(dummy);
   }
 
+}
+
+
+int getDigit(char num) {
+  // ASCII number of 0 is 48
+  return (int)num - 48;
 }

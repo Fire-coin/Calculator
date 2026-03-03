@@ -6,12 +6,13 @@
 int main() {
   
   std::cout << "Enter decimal number: ";
-  double number;
-  std::cin >> number;
+  std::string number;
   
+  std::getline(std::cin, number);
+
   Fraction frac(number);
 
-  std::cout << "#### Generating prime numbers ####\n";
+  std::cout << "#### Generating test prime numbers ####\n";
   std::vector<long> primes;
   getPrimes(primes, 1000);
 
@@ -19,7 +20,7 @@ int main() {
     std::cout << i << ", ";
   std::cout << std::endl;
   
-  std::cout << "#### Finished generating prime numbers ####\n";
+  std::cout << "#### Finished generating test prime numbers ####\n";
 
   std::cout << "#### Factoring inputed nominator ####\n";
   

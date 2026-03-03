@@ -1,8 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <string>
 
-bool isDecimal(double number);
-
+int getDigit(char num);
 
 class Fraction {
 
@@ -11,7 +11,7 @@ public:
   long denominator;
   int power;
 
-  Fraction(double number);
+  Fraction(std::string number);
 
 };
 
