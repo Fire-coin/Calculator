@@ -34,6 +34,52 @@ Fraction::Fraction(std::string num) {
   std::cout << "New number: " << number << "; power: " << power << std::endl; 
 }
 
+
+void Fraction::simplify() {
+  // Getting prime factors of numerator and denominator
+  std::vector<PrimeFactor> numi;
+  std::vector<PrimeFactor> denomi;
+  factorise(numi, this->numerator);
+  factorise(denomi, this->denominator);
+
+
+  // Checking for common factors
+  for (int i = 0; i < numi.size(); ++i) {
+    auto it = std::find_if(denomi.begin(), denomi.end(), [&numi, &i](PrimeFactor p){
+       return numi[i].prime == p.prime;
+       });
+
+    // Skipping if this prime is not common for both top and botton of fraction
+    if (it == denomi.end())
+      continue;
+   
+    int lowest = std::min(it->power, numi[i].power);
+    // Substracting the highest power of prime from both top and bottom
+    numi[i].power -= lowest;
+    it->power -= lowest;
+  }
+
+  // Reconstructiong simplified numerator and denominator
+  long newNumerator = 1;
+  long newDenominator = 1;
+  
+  for (int i = 0; i < numi.size(); ++i)
+    std::cout << numi[i].prime << " : " << numi[i].power << ", \n";
+
+  for (int i = 0; i < denomi.size(); ++i)
+    std::cout << denomi[i].prime << " : " << denomi[i].power << ", \n";
+
+  for (int i = 0; i < numi.size(); ++i)
+    newNumerator *= std::pow(numi[i].prime, numi[i].power);
+
+  for (int i = 0; i < denomi.size(); ++i)
+    newDenominator *= std::pow(denomi[i].prime, denomi[i].power);
+
+  this->numerator = newNumerator;
+  this->denominator = newDenominator;
+}
+
+
 bool PrimeFactor::operator==(const PrimeFactor& other) {return this->prime == other.prime && this->power == other.power;}
 
 bool PrimeFactor::operator<(const PrimeFactor& other) {return this->prime < other.prime;}
@@ -66,7 +112,7 @@ void getPrimes(std::vector<long>& primes, long limit) {
     i++;
   }
 }
-
+/* Populates @factors with prime factors of @target */
 void factorise(std::vector<PrimeFactor>& factors, long target) {
   long limit = std::sqrt(target);
   // TODO make the prime number rendering in batches of e.g 1000

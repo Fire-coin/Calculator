@@ -31,7 +31,12 @@ int main() {
     std::cout << "power: " << i.power << std::endl << std::endl;
   }
   std::cout << "#### Finished Factoring nominator ####\n";
-
+  
+  std::cout << "#### Simplifying fraction ####\n";
+  frac.simplify();
+  std::cout << "Numerator: " << frac.numerator << std::endl;
+  std::cout << "Denominator: " << frac.denominator << std::endl;
+  std::cout << "#### Finished Simplifying fraction ####\n";
 
   return 0;
 

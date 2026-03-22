@@ -12,7 +12,7 @@ public:
   int power;
 
   Fraction(std::string number);
-
+  void simplify();
 };
 
 struct PrimeFactor {
