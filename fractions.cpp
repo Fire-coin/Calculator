@@ -31,7 +31,7 @@ Fraction::Fraction(std::string num) {
   this->numerator = number;
   this->power = power;
   this->denominator = std::pow(10, power);
-  std::cout << "New number: " << number << "; power: " << power << std::endl; 
+  this->simplify();
 }
 
 
@@ -62,12 +62,6 @@ void Fraction::simplify() {
   // Reconstructiong simplified numerator and denominator
   long newNumerator = 1;
   long newDenominator = 1;
-  
-  for (int i = 0; i < numi.size(); ++i)
-    std::cout << numi[i].prime << " : " << numi[i].power << ", \n";
-
-  for (int i = 0; i < denomi.size(); ++i)
-    std::cout << denomi[i].prime << " : " << denomi[i].power << ", \n";
 
   for (int i = 0; i < numi.size(); ++i)
     newNumerator *= std::pow(numi[i].prime, numi[i].power);

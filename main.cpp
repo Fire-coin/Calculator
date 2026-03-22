@@ -21,16 +21,6 @@ int main() {
   std::cout << std::endl;
   
   std::cout << "#### Finished generating test prime numbers ####\n";
-
-  std::cout << "#### Factoring inputed nominator ####\n";
-  
-  std::vector<PrimeFactor> pFactors;
-  factorise(pFactors, frac.numerator);
-  for (auto i : pFactors) {
-    std::cout << "prime: " << i.prime << std::endl;
-    std::cout << "power: " << i.power << std::endl << std::endl;
-  }
-  std::cout << "#### Finished Factoring nominator ####\n";
   
   std::cout << "#### Simplifying fraction ####\n";
   frac.simplify();
