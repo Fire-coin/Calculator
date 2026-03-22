@@ -73,6 +73,25 @@ void Fraction::simplify() {
   this->denominator = newDenominator;
 }
 
+Fraction Fraction::operator+ (const Fraction& other){
+  // TODO make this more effiecent by multipling only to get denominators to LCM
+  Fraction newFrac("1");
+  long newNumerator = 0;
+  long newDenominator = 1;
+  if (this->denominator != other.denominator) { // If denominators are different, performing cross multiplication
+    newNumerator += this->numerator * other.denominator;
+    newNumerator += other.numerator * this->denominator;
+    newDenominator = this->denominator * other.denominator;
+  } else { // If denominators are same, just summing up numerators
+    newNumerator = this->numerator + other.numerator;
+    newDenominator = this->denominator;
+  }
+  newFrac.numerator = newNumerator;
+  newFrac.denominator = newDenominator;
+  newFrac.simplify();
+  return newFrac;
+}
+
 
 bool PrimeFactor::operator==(const PrimeFactor& other) {return this->prime == other.prime && this->power == other.power;}
 

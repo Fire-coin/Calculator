@@ -22,11 +22,26 @@ int main() {
   
   std::cout << "#### Finished generating test prime numbers ####\n";
   
-  std::cout << "#### Simplifying fraction ####\n";
-  frac.simplify();
+  std::cout << "#### Fraction ####\n";
   std::cout << "Numerator: " << frac.numerator << std::endl;
   std::cout << "Denominator: " << frac.denominator << std::endl;
-  std::cout << "#### Finished Simplifying fraction ####\n";
+  std::cout << "#### Finished Fraction ####\n";
+  
+  std::cout << "Enter second decimal number: ";
+  std::getline(std::cin, number);
+
+  Fraction frac2(number);
+
+  std::cout << "#### Second fraction ####\n";
+  std::cout << "Numerator: " << frac2.numerator << std::endl;
+  std::cout << "Denominator: " << frac2.denominator << std::endl;
+  std::cout << "#### Finished Second fraction ####\n";
+  
+  std::cout << "#### Addition of fractions ####\n";
+  Fraction frac3 = frac + frac2;
+  std::cout << "Result Numerator: " << frac3.numerator << std::endl;
+  std::cout << "Result Denominator: " << frac3.denominator << std::endl;
+  std::cout << "#### Finished addition of fractions ####\n";
 
   return 0;
 

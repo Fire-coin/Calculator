@@ -13,6 +13,9 @@ public:
 
   Fraction(std::string number);
   void simplify();
+  
+  Fraction operator+ (const Fraction& other);
+
 };
 
 struct PrimeFactor {
