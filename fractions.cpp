@@ -102,7 +102,7 @@ Fraction Fraction::operator+ (const Fraction& other){
   return newFrac;
 }
 
-// Adding negative value of toher fraction
+// Adding negative value of other fraction
 Fraction Fraction::operator- (const Fraction& other) {
   return *this + (-other);
 }
@@ -113,6 +113,24 @@ Fraction Fraction::operator- () const {
   temp.numerator = -temp.numerator;
   return temp;
 }
+
+// Multiplies both numerators and denominators together and then simplifies resultant fraction
+Fraction Fraction::operator* (const Fraction& other) {
+  Fraction newFrac = *this;
+  newFrac.numerator *= other.numerator;
+  newFrac.denominator *= other.denominator;
+  
+  newFrac.simplify();
+  return newFrac;
+}
+// Flipping other fraction and multipling them together
+Fraction Fraction::operator/ (const Fraction& other) {
+  Fraction temp = other;
+  temp.numerator = other.denominator;
+  temp.denominator = other.numerator;
+  return *this * temp;
+}
+
 
 bool PrimeFactor::operator==(const PrimeFactor& other) {return this->prime == other.prime && this->power == other.power;}
 

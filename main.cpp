@@ -50,6 +50,18 @@ int main() {
   std::cout << "Result Denominator: " << frac4.denominator << std::endl;
   std::cout << "#### Finished substraction of fractions ####\n";
 
+  std::cout << "#### Multiplication of fractions ####\n";
+  Fraction frac5 = frac * frac2;
+  std::cout << "Result Numerator: " << frac5.numerator << std::endl;
+  std::cout << "Result Denominator: " << frac5.denominator << std::endl;
+  std::cout << "#### Finished multiplication of fractions ####\n";
+  
+  std::cout << "#### Division of fractions ####\n";
+  Fraction frac6 = frac / frac2;
+  std::cout << "Result Numerator: " << frac6.numerator << std::endl;
+  std::cout << "Result Denominator: " << frac6.denominator << std::endl;
+  std::cout << "#### Finished division of fractions ####\n";
+            
   return 0;
 
 }
