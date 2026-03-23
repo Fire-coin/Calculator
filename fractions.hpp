@@ -1,3 +1,6 @@
+#ifndef FRACTIONS_HPP
+#define FRACTIONS_HPP
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -33,3 +36,5 @@ struct PrimeFactor {
 void getPrimes(std::vector<long>& primes, long limit);
 
 void factorise(std::vector<PrimeFactor>& factors, long target);
+
+#endif
