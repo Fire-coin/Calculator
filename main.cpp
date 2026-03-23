@@ -42,6 +42,13 @@ int main() {
   std::cout << "Result Numerator: " << frac3.numerator << std::endl;
   std::cout << "Result Denominator: " << frac3.denominator << std::endl;
   std::cout << "#### Finished addition of fractions ####\n";
+  
+  
+  std::cout << "#### Substraction of fractions ####\n";
+  Fraction frac4 = frac - frac2;
+  std::cout << "Result Numerator: " << frac4.numerator << std::endl;
+  std::cout << "Result Denominator: " << frac4.denominator << std::endl;
+  std::cout << "#### Finished substraction of fractions ####\n";
 
   return 0;
 

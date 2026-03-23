@@ -15,7 +15,8 @@ public:
   void simplify();
   
   Fraction operator+ (const Fraction& other);
-
+  Fraction operator- (const Fraction& other);
+  Fraction operator- () const;
 };
 
 struct PrimeFactor {

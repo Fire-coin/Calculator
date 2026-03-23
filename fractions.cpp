@@ -3,7 +3,6 @@
 #include "fractions.hpp"
 #include <algorithm>
 
-// TODO interpret number as string and process also as string to remove floating point error
 Fraction::Fraction(std::string num) {
   // Load numbers until decimal dot
   long number = 0;
@@ -39,9 +38,18 @@ void Fraction::simplify() {
   // Getting prime factors of numerator and denominator
   std::vector<PrimeFactor> numi;
   std::vector<PrimeFactor> denomi;
-  factorise(numi, this->numerator);
-  factorise(denomi, this->denominator);
-
+  
+  if (this->numerator < 0)
+    factorise(numi, -this->numerator);
+  else
+    factorise(numi, this->numerator);
+  
+  if (this->denominator < 0)
+    factorise(denomi, -this->denominator);
+  else
+    factorise(denomi, this->denominator);
+  // Either top or bottom have to be negative for fraction to be negative, if they are the same sign, fraction will be positive
+  bool negative = (this->numerator < 0) ^ (this->denominator < 0);
 
   // Checking for common factors
   for (int i = 0; i < numi.size(); ++i) {
@@ -62,6 +70,8 @@ void Fraction::simplify() {
   // Reconstructiong simplified numerator and denominator
   long newNumerator = 1;
   long newDenominator = 1;
+  if (negative)
+    newNumerator = -1;
 
   for (int i = 0; i < numi.size(); ++i)
     newNumerator *= std::pow(numi[i].prime, numi[i].power);
@@ -92,6 +102,17 @@ Fraction Fraction::operator+ (const Fraction& other){
   return newFrac;
 }
 
+// Adding negative value of toher fraction
+Fraction Fraction::operator- (const Fraction& other) {
+  return *this + (-other);
+}
+
+// Unary operator
+Fraction Fraction::operator- () const {
+  Fraction temp = *this;
+  temp.numerator = -temp.numerator;
+  return temp;
+}
 
 bool PrimeFactor::operator==(const PrimeFactor& other) {return this->prime == other.prime && this->power == other.power;}
 
