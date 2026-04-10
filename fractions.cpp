@@ -28,9 +28,15 @@ Fraction::Fraction(std::string num) {
   }
   
   this->numerator = number;
-  this->power = power;
   this->denominator = std::pow(10, power);
   this->simplify();
+}
+
+
+Fraction::Fraction(long num, long denom) {
+ this->numerator = num;
+ this->denominator = denom;
+ this->simplify();
 }
 
 

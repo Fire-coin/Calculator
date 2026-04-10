@@ -61,7 +61,16 @@ int main() {
   std::cout << "Result Numerator: " << frac6.numerator << std::endl;
   std::cout << "Result Denominator: " << frac6.denominator << std::endl;
   std::cout << "#### Finished division of fractions ####\n";
-            
+  
+  std::cout << "Enter numerator of third fraction: ";
+  int num;
+  std::cin >> num;
+  std::cout << "Enter denominator of third fraction: ";
+  int denom;
+  std::cin >> denom;
+  Fraction frac7 = Fraction(num, denom);
+  std::cout << "Numerator: " << frac7.numerator << ", denominator: " << frac7.denominator << std::endl;
+
   return 0;
 
 }

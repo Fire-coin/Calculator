@@ -12,9 +12,10 @@ class Fraction {
 public:
   long numerator;
   long denominator;
-  int power;
 
   Fraction(std::string number);
+  Fraction(long num, long denom);
+  Fraction() : numerator(1), denominator(1) {};
   void simplify();
   
   Fraction operator+ (const Fraction& other);
