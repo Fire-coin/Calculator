@@ -8,17 +8,9 @@
 
 enum class TokenType{NUM, PLUS, MINUS, MUL, DIV, POW, LPAR, RPAR, SIN, COS, TAN, LOG, LN, ERR, NOTHING};
 
-/* Stores precedence of operators */
-std::unordered_map<TokenType, int8_t> precedence {
-  {TokenType::PLUS, 1},
-  {TokenType::MINUS, 1},
-  {TokenType::MUL, 2},
-  {TokenType::DIV, 2},
-};
-
 class Token {
   public:
-    Token(TokenType type = TokenType::NUM, int64_t value = 0) : type(type), val(value){};
+    Token(TokenType type = TokenType::NUM, double value = 0) : type(type), val(value){};
 
     std::string toString();
 

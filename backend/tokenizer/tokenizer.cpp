@@ -66,7 +66,7 @@ void Tokenizer::tokenize(const std::string& input, std::vector<Token>& tokens, i
       numBuffer += input[i];
       continue;
     } else if (!numBuffer.empty()) { /* Add number from numBuffer as a token */
-      tokens.emplace_back(TokenType::NUM, std::stol(numBuffer));
+      tokens.emplace_back(TokenType::NUM, std::stod(numBuffer));
       numBuffer.clear();
     }
     /* Checking if current character is operator */
@@ -100,28 +100,8 @@ void Tokenizer::tokenize(const std::string& input, std::vector<Token>& tokens, i
   }
   /* Add number from numBuffer as a token */
   if (!numBuffer.empty()) { 
-      tokens.emplace_back(TokenType::NUM, std::stol(numBuffer));
+      tokens.emplace_back(TokenType::NUM, std::stod(numBuffer));
       numBuffer.clear();
   }
   err = 0;
-}
-
-int main() {
-
-  std::cout << "Hello from tokenizer!\n";
-  std::vector<Token> tokens;
-  std::string line;
-  std::getline(std::cin, line);
-  int err = 0;
-  Tokenizer::tokenize(line, tokens, err);
-  if (err < 0) {
-    std::cout << "Error\n";
-    return -1;
-  }
-
-  for (auto token : tokens) {
-    std::cout << token.toString() << std::endl;
-  }
-
-  return 0;
 }
