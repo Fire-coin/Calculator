@@ -2,11 +2,10 @@
 #define TOKENIZER_HPP
 
 #include <cstdint>
-#include <unordered_map>
 #include <string>
 #include <vector>
 
-enum class TokenType{NUM, PLUS, MINUS, MUL, DIV, POW, LPAR, RPAR, SIN, COS, TAN, LOG, LN, ERR, NOTHING};
+enum class TokenType{NUM, PLUS, MINUS, MUL, DIV, POW, LPAR, RPAR, SIN, COS, TAN, LOG, LN, ERR, NOTHING, COMMA};
 
 class Token {
   public:

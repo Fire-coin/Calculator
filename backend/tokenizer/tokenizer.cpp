@@ -31,6 +31,8 @@ TokenType getOperator(const char c) {
       return TokenType::RPAR;
     case '^':
       return TokenType::POW;
+    case ',':
+      return TokenType::COMMA;
     default:
       if (isLetter(c))
         return TokenType::NOTHING;

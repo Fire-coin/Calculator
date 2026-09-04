@@ -6,5 +6,33 @@ int main() {
 
   std::cout << "Hello from parser!\n";
 
+  std::vector<Token> tokens;
+  std::string line;
+  std::getline(std::cin, line);
+  int err = 0;
+  Tokenizer::tokenize(line, tokens, err);
+  if (err < 0) {
+    std::cout << "Error\n";
+    return -1;
+  }
+  std::cout << "tokens: ";
+  for (auto token : tokens) {
+    std::cout << token.toString() << std::endl;
+  }
+  std::vector<Token> RPNOut;
+
+  Parser::parse(tokens, RPNOut, err);
+
+  if (err < 0) {
+    std::cout << "Error\n";
+    return -1;
+  }
+
+  
+  std::cout << "RPNOut: ";
+  for (auto token : RPNOut) {
+    std::cout << token.toString() << std::endl;
+  }
+
   return 0;
 }
