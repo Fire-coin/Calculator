@@ -22,6 +22,46 @@ inline bool operatorCondition(const std::stack<Token>& opStack, const Token& cur
               || (precedence.at(opStack.top().type) == precedence.at(curToken.type)
                 && isLeftAss(curToken))));
 }
+/* Helper function to handle cases when token is COMMA, LPAR or RPAR */
+void handleSpecial(std::stack<Token>& opStack, std::vector<Token>& RPNOut, const Token& curToken, int32_t& err) {
+  switch (curToken.type) {
+    case TokenType::COMMA:
+      /* Popping operators into output until top of stack is not left parenthesis */
+      while (!opStack.empty() && opStack.top().type != TokenType::LPAR) {
+        RPNOut.push_back(opStack.top());
+        opStack.pop();
+      }
+      break;
+    case TokenType::LPAR:
+      opStack.push(curToken);
+      break;
+    case TokenType::RPAR:
+      /* Pop operator stack until left parenthesis is found */
+      while (!opStack.empty() && opStack.top().type != TokenType::LPAR) {
+        RPNOut.push_back(opStack.top());
+        opStack.pop();
+      }
+      /* Mismatched parentheses */
+      if (opStack.empty() || opStack.top().type != TokenType::LPAR) {
+        std::cerr << "Mismatched parentheses\n";
+        err = -1;
+        return;
+      }
+
+      /* Popping left parenthesis out of the stack */
+      opStack.pop();
+
+      /* If there is function at top of operator stack, pop it */
+      if (!opStack.empty() && isFunction(opStack.top())) {
+        RPNOut.push_back(opStack.top());
+        opStack.pop();
+      }
+      break;
+    default:
+      break;
+  }
+}
+
 
 /* Using shunting yard algorithm to parse instructions */
 void Parser::parse(const std::vector<Token>& input, std::vector<Token>& RPNOut, int32_t& err) {
@@ -30,11 +70,13 @@ void Parser::parse(const std::vector<Token>& input, std::vector<Token>& RPNOut, 
   std::stack<Token> opStack;
 
   for (const Token& curToken : input) {
+
     /* If a number, push into output */
     if (curToken.type == TokenType::NUM) {
       RPNOut.push_back(curToken);
       continue;
     }
+
     /* If a function, push onto operator stack */
     if (isFunction(curToken)) {
       opStack.push(curToken);
@@ -51,42 +93,9 @@ void Parser::parse(const std::vector<Token>& input, std::vector<Token>& RPNOut, 
     }
 
     /* Do specific behaviour on rest of the tokens types */
-    switch (curToken.type) {
-      case TokenType::COMMA:
-        /* Popping operators into output until top of stack is not left parenthesis */
-        while (!opStack.empty() && opStack.top().type != TokenType::LPAR) {
-          RPNOut.push_back(opStack.top());
-          opStack.pop();
-        }
-        break;
-      case TokenType::LPAR:
-        opStack.push(curToken);
-        break;
-      case TokenType::RPAR:
-        /* Pop operator stack until left parenthesis is found */
-        while (!opStack.empty() && opStack.top().type != TokenType::LPAR) {
-          RPNOut.push_back(opStack.top());
-          opStack.pop();
-        }
-        /* Mismatched parentheses */
-        if (opStack.empty() || opStack.top().type != TokenType::LPAR) {
-          std::cerr << "Mismatched parentheses\n";
-          err = -1;
-          return;
-        }
-
-        /* Popping left parenthesis out of the stack */
-        opStack.pop();
-
-        /* If there is function at top of operator stack, pop it */
-        if (!opStack.empty() && isFunction(opStack.top())) {
-          RPNOut.push_back(opStack.top());
-          opStack.pop();
-        }
-        break;
-      default:
-        break;
-    }
+    handleSpecial(opStack, RPNOut, curToken, err);
+    if (err != 0)
+      return;
   }
 
   while (!opStack.empty()) {
