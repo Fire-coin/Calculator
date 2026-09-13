@@ -1,24 +1,36 @@
 #include "mathFuncs.hpp"
 #include <cmath>
 
+/* Pops N top elements from provided number stack and pushes them to vector arr.
+ * Also does checks if elements are present on the stack.
+ * */
+void popN(std::stack<double>& numStack, std::vector<double>& arr, int32_t N, int32_t& err) {
+  for (int i = 0; i < N; ++i) {
+    if (numStack.empty()) {
+      err = -2;
+      return;
+    }
+    arr.push_back(numStack.top());
+    numStack.pop();
+  }
+}
 
-/* Operator always takes only 2 arguments */
+/* Performs given operation on top 2 elements of number stack, because we work with RPN,
+ * operands should be used in reverse order they are poped from stack. */
 void applyOperator(std::stack<double>& numStack, const Token& op, int32_t& err) {
-  /* Pop top 2 elements from the stack */
+  /* Operator always takes only 2 arguments */
   double a, b;
-  if (numStack.empty()) {
-    err = -2;
-    return;
-  }
-  b = numStack.top();
-  numStack.pop();
-  if (numStack.empty()) {
-    err = -2;
-    return;
-  }
-  a = numStack.top();
-  numStack.pop();
+  std::vector<double> arr;
 
+  /* Pop top 2 elements from the stack */
+  popN(numStack, arr, 2, err);
+  if (err < 0)
+    return;
+  
+  a = arr[0];
+  b = arr[1];
+
+  /* Push back the result onto the stack */
   switch (op.type) {
     case TokenType::PLUS:
       numStack.push(a + b);
@@ -42,17 +54,8 @@ void applyOperator(std::stack<double>& numStack, const Token& op, int32_t& err) 
   }
 }
 
-void popN(std::stack<double>& numStack, std::vector<double>& arr, int32_t n, int32_t& err) {
-  for (int i = 0; i < n; ++i) {
-    if (numStack.empty()) {
-      err = -2;
-      return;
-    }
-    arr.push_back(numStack.top());
-    numStack.pop();
-  }
-}
-
+/* Performs given function to arguments, each function can have any number of arguments,
+ * their number is specified in switch statement. */
 void applyFunction(std::stack<double>& numStack, const Token& func, int32_t& err) {
   std::vector<double> args;
 
