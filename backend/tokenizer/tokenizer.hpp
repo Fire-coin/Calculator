@@ -14,7 +14,7 @@ class Token {
     std::string toString();
 
     TokenType type;
-    int64_t val;
+    double val;
 };
 
 class Tokenizer {

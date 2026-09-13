@@ -64,7 +64,7 @@ void Tokenizer::tokenize(const std::string& input, std::vector<Token>& tokens, i
 
   for (size_t i = 0; i < input.size(); ++i) {
     /* Adding currect character into numBuffer if it is a digit */
-    if (isDigit(input[i])) {
+    if (isDigit(input[i]) || input[i] == '.') {
       numBuffer += input[i];
       continue;
     } else if (!numBuffer.empty()) { /* Add number from numBuffer as a token */
