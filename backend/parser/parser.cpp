@@ -121,7 +121,7 @@ double Parser::evaluate(const std::vector<Token>& RPN, int32_t& err) {
       if (isOperator(token)) {
         applyOperator(numStack, token, err);
       } else {
-        /* hanle function */
+        applyFunction(numStack, token, err);
       }
     }
   }

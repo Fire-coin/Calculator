@@ -41,3 +41,41 @@ void applyOperator(std::stack<double>& numStack, const Token& op, int32_t& err) 
       break;
   }
 }
+
+void popN(std::stack<double>& numStack, std::vector<double>& arr, int32_t n, int32_t& err) {
+  for (int i = 0; i < n; ++i) {
+    if (numStack.empty()) {
+      err = -2;
+      return;
+    }
+    arr.push_back(numStack.top());
+    numStack.pop();
+  }
+}
+
+void applyFunction(std::stack<double>& numStack, const Token& func, int32_t& err) {
+  std::vector<double> args;
+
+  switch (func.type) {
+    case TokenType::SIN:
+      popN(numStack, args, 1, err);
+      numStack.push(std::sin(args[0]));
+      break;
+    case TokenType::COS:
+      popN(numStack, args, 1, err);
+      numStack.push(std::cos(args[0]));
+      break;
+    case TokenType::TAN:
+      popN(numStack, args, 1, err);
+      numStack.push(std::tan(args[0]));
+      break;
+    case TokenType::LOG:
+      popN(numStack, args, 1, err);
+      numStack.push(std::log10(args[0]));
+      break;
+    case TokenType::LN:
+      popN(numStack, args, 1, err);
+      numStack.push(std::log(args[0]));
+      break;
+  }
+}

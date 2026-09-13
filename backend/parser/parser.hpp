@@ -19,7 +19,8 @@ inline const std::unordered_set<TokenType> functions {
 };
 
 /* Stores operator types */
-inline const std::unordered_set<TokenType> operators { TokenType::PLUS, TokenType::MINUS, TokenType::MUL, TokenType::DIV, TokenType::POW
+inline const std::unordered_set<TokenType> operators {
+  TokenType::PLUS, TokenType::MINUS, TokenType::MUL, TokenType::DIV, TokenType::POW
 };
 
 /* Stores left associative operator types */
