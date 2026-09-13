@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.23)
 
 add_library(parser STATIC
   parser.cpp
+  mathFuncs.cpp
 )
 
 target_include_directories(parser PRIVATE

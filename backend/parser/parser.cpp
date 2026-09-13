@@ -1,4 +1,5 @@
 #include "parser.hpp"
+#include "mathFuncs.hpp"
 #include <stack>
 #include <iostream>
 
@@ -110,18 +111,19 @@ void Parser::parse(const std::vector<Token>& input, std::vector<Token>& RPNOut, 
   }
 }
 
-void Parser::evaluate(const std::vector<Token>& RPN, int32_t& err) {
-  std::stack<Token> numStack;
+double Parser::evaluate(const std::vector<Token>& RPN, int32_t& err) {
+  std::stack<double> numStack;
 
   for (const Token token : RPN) {
     if (token.type == TokenType::NUM)
-      numStack.push(token);
+      numStack.push(token.val);
     else {
       if (isOperator(token)) {
-        /* handle operator */
+        applyOperator(numStack, token, err);
       } else {
         /* hanle function */
       }
     }
   }
+  return numStack.top();
 }

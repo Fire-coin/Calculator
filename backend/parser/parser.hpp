@@ -19,8 +19,7 @@ inline const std::unordered_set<TokenType> functions {
 };
 
 /* Stores operator types */
-inline const std::unordered_set<TokenType> operators {
-  TokenType::PLUS, TokenType::MINUS, TokenType::MUL, TokenType::DIV, TokenType::POW
+inline const std::unordered_set<TokenType> operators { TokenType::PLUS, TokenType::MINUS, TokenType::MUL, TokenType::DIV, TokenType::POW
 };
 
 /* Stores left associative operator types */
@@ -41,7 +40,7 @@ class Parser {
   public:
     Parser() = default;
     static void parse(const std::vector<Token>& input, std::vector<Token>& RPNOut, int32_t& err);
-    static void evaluate(const std::vector<Token>& RPN, int32_t& err);
+    static double evaluate(const std::vector<Token>& RPN, int32_t& err);
 };
 #endif
 #pragma once

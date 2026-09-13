@@ -34,5 +34,11 @@ int main() {
     std::cout << token.toString() << std::endl;
   }
 
+  double result = Parser::evaluate(RPNOut, err);
+  if (err < 0) {
+    std::cout << "Error\n";
+    return -1;
+  }
+  std::cout << "result: " << result << std::endl;
   return 0;
 }
