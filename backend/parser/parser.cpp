@@ -109,3 +109,19 @@ void Parser::parse(const std::vector<Token>& input, std::vector<Token>& RPNOut, 
     opStack.pop();
   }
 }
+
+void Parser::evaluate(const std::vector<Token>& RPN, int32_t& err) {
+  std::stack<Token> numStack;
+
+  for (const Token token : RPN) {
+    if (token.type == TokenType::NUM)
+      numStack.push(token);
+    else {
+      if (isOperator(token)) {
+        /* handle operator */
+      } else {
+        /* hanle function */
+      }
+    }
+  }
+}

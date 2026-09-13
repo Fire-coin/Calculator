@@ -1,3 +1,5 @@
+#ifndef PARSER_HPP
+#define PARSER_HPP
 #include "tokenizer.hpp"
 #include <unordered_map>
 #include <unordered_set>
@@ -39,4 +41,7 @@ class Parser {
   public:
     Parser() = default;
     static void parse(const std::vector<Token>& input, std::vector<Token>& RPNOut, int32_t& err);
+    static void evaluate(const std::vector<Token>& RPN, int32_t& err);
 };
+#endif
+#pragma once
